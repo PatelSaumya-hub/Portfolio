@@ -12,17 +12,25 @@ body.light-white {
   --color-border-hover: #cbd5e1;
   --color-highlight-bg: #f8fafc;
   --color-active: #000000;
+  --color-badge-bg: #f1f5f9;
+  --color-badge-text: #475569;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
 }
 
 body.light-gray {
-  --color-bg: #f1f5f9; /* Soft cool-grey background */
+  --color-bg: #f8fafc; /* Soft cool-grey background */
   --color-bg-card: #ffffff;
   --color-text-primary: #1e293b;
   --color-text-secondary: #475569;
   --color-border: #cbd5e1;
   --color-border-hover: #94a3b8;
-  --color-highlight-bg: #f8fafc;
+  --color-highlight-bg: #f1f5f9;
   --color-active: #0f172a;
+  --color-badge-bg: #f1f5f9;
+  --color-badge-text: #334155;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
 }
 
 * {
@@ -45,7 +53,7 @@ body {
 .portfolio-main,
 .footer-container {
   width: 100%;
-  max-width: 780px;
+  max-width: 820px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -54,11 +62,17 @@ body {
 .portfolio-nav {
   position: sticky;
   top: 0;
-  background-color: var(--color-bg);
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--color-border);
   z-index: 100;
   padding: 1.25rem 0;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.light-gray .portfolio-nav {
+  background-color: rgba(248, 250, 252, 0.85);
 }
 
 .nav-flex {
@@ -96,7 +110,7 @@ body {
   background-color: transparent;
   color: var(--color-text-primary);
   border: 1px solid var(--color-border);
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.9rem;
   border-radius: 4px;
   font-size: 0.85rem;
   font-weight: 500;
@@ -149,7 +163,7 @@ body {
   font-size: 1.85rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .portfolio-section h3 {
@@ -165,58 +179,179 @@ body {
   margin-bottom: 2.5rem;
 }
 
-/* Project Cards & Details */
-.highlight-item,
-.project-node {
+/* Experience Highlights */
+.highlight-item {
   margin-bottom: 2.5rem;
   padding-bottom: 2.5rem;
   border-bottom: 1px dashed var(--color-border);
   transition: border-color 0.3s ease;
 }
 
-.highlight-item:last-child,
-.project-node:last-child {
+.highlight-item:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
   border-bottom: none;
 }
 
-.highlight-item h4,
-.project-node h3 {
+.highlight-item h4 {
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.4rem;
 }
 
-.highlight-meta,
-.project-type {
+.highlight-meta {
   font-size: 0.85rem;
   color: var(--color-text-secondary);
   margin-bottom: 0.85rem;
 }
 
-.highlight-item p,
-.project-desc {
+.highlight-item p {
   font-size: 0.95rem;
   color: var(--color-text-secondary);
 }
 
-.project-flow {
-  display: block;
-  background-color: var(--color-highlight-bg);
-  border: 1px solid var(--color-border);
-  padding: 1.25rem;
-  margin: 1.25rem 0;
-  border-radius: 4px;
-  overflow-x: auto;
-  font-family: monospace;
-  font-size: 0.8rem;
-  line-height: 1.4;
-  color: var(--color-text-primary);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+/* 5. Projects Showcase UI (Pro Level) */
+.filter-container {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
 }
 
-/* 5. Contact Form with Controlled Inputs (Lab 2 specifications) */
+.filter-btn {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text-primary);
+}
+
+.filter-btn.active {
+  background-color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  color: var(--color-bg);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-card {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--color-border-hover);
+}
+
+.project-card-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-badge {
+  align-self: flex-start;
+  padding: 0.25rem 0.65rem;
+  background-color: var(--color-badge-bg);
+  color: var(--color-badge-text);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.project-badge-highlight {
+  align-self: flex-start;
+  padding: 0.25rem 0.65rem;
+  background-color: rgba(99, 102, 241, 0.08);
+  color: #4f46e5;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.project-card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.project-card-description {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.project-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-tech-stack span {
+  font-family: monospace;
+  font-size: 0.75rem;
+  background-color: var(--color-highlight-bg);
+  color: var(--color-text-primary);
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+}
+
+.btn-card-details {
+  width: 100%;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  padding: 0.65rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.btn-card-details:hover {
+  background-color: var(--color-highlight-bg);
+  border-color: var(--color-border-hover);
+}
+
+/* 6. Contact Form & Tooltips (Lab 2 specs) */
 .contact-intro {
   margin-bottom: 2.5rem;
   font-size: 1.05rem;
@@ -229,7 +364,7 @@ body {
   padding: 2.5rem;
   border-radius: 6px;
   margin-bottom: 3rem;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  box-shadow: var(--shadow-card);
 }
 
 .help-toggle-wrapper {
@@ -282,7 +417,7 @@ body {
   border: 1px solid var(--color-border);
   color: var(--color-text-primary);
   border-radius: 4px;
-  font-family: var(--font-sans);
+  font-family: inherit;
   font-size: 0.95rem;
   resize: vertical;
   outline: none;
@@ -300,7 +435,6 @@ body {
   margin-top: 0.35rem;
 }
 
-/* Controlled Real-time Input Review Board */
 .input-preview-box {
   border-top: 1px solid var(--color-border);
   padding-top: 2rem;
@@ -333,7 +467,7 @@ body {
   font-style: italic;
 }
 
-/* 6. Skills Render Layout */
+/* 7. Skills List Component */
 .skills-list {
   display: flex;
   flex-wrap: wrap;
@@ -356,7 +490,7 @@ body {
   border-color: var(--color-border-hover);
 }
 
-/* 7. Not Found Error Route Layout */
+/* 8. 404 Route */
 .not-found-view {
   text-align: center;
   padding: 6rem 0;
@@ -384,7 +518,260 @@ body {
   background-color: var(--color-text-secondary);
 }
 
-/* 8. Reusable Footer Layout */
+/* 9. Interactive Modals System (Pro Level) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+body.light-gray .modal-overlay {
+  background-color: rgba(241, 245, 249, 0.7);
+}
+
+.modal-card {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: 8px;
+  position: relative;
+  overflow-y: auto;
+  border: 1.5px solid var(--color-border-hover);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: transparent;
+  border: none;
+  font-size: 1.85rem;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  z-index: 10;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: var(--color-text-primary);
+}
+
+.modal-content-container {
+  padding: 3rem 2.5rem;
+}
+
+@media (max-width: 600px) {
+  .modal-content-container {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+.modal-project-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  background-color: var(--color-highlight-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+}
+
+.modal-project-title {
+  font-size: 2.15rem;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.modal-project-meta-row {
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1.25rem;
+}
+
+.modal-project-meta-item strong {
+  color: var(--color-text-primary);
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.modal-project-overview {
+  margin-bottom: 2.5rem;
+}
+
+.modal-project-overview h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+}
+
+.modal-project-overview p {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+/* Architecture diagrams inside light modals */
+.architecture-diagram-container {
+  background-color: var(--color-highlight-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 1.75rem;
+  margin: 2rem 0;
+}
+
+.architecture-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.arch-title-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.svg-wrapper {
+  overflow-x: auto;
+}
+
+.arch-svg {
+  width: 100%;
+  height: auto;
+  min-width: 500px;
+  display: block;
+}
+
+/* SVG nodes light mode colors */
+.arch-svg text {
+  font-family: monospace;
+  font-size: 10px;
+  fill: #334155;
+}
+
+.arch-svg .text-secondary {
+  fill: #64748b;
+}
+
+.arch-svg .text-highlight {
+  fill: #4f46e5;
+  font-weight: bold;
+}
+
+.arch-svg .text-highlight-sec {
+  fill: #7c3aed;
+  font-weight: bold;
+}
+
+.arch-svg .node-rect {
+  fill: #ffffff;
+  stroke: #94a3b8;
+  stroke-width: 1.5;
+  transition: all 0.2s ease;
+}
+
+.arch-svg .node-rect.highlight {
+  stroke: #4f46e5;
+  fill: rgba(79, 70, 229, 0.02);
+}
+
+.arch-svg .node-rect.highlight-secondary {
+  stroke: #7c3aed;
+  fill: rgba(124, 58, 237, 0.02);
+}
+
+.arch-svg .connector-line {
+  stroke: #cbd5e1;
+  stroke-width: 1.5;
+  stroke-dasharray: 4;
+  animation: svg-dash 40s linear infinite;
+}
+
+.arch-svg .connector-arrow {
+  fill: #94a3b8;
+}
+
+@keyframes svg-dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+.arch-svg .node-group:hover .node-rect {
+  stroke: #0f172a !important;
+  fill: #fafafa !important;
+}
+
+.arch-svg .node-group:hover .node-rect.highlight {
+  stroke: #4f46e5 !important;
+  fill: rgba(79, 70, 229, 0.06) !important;
+}
+
+/* Highlights Grid */
+.modal-highlights-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .modal-highlights-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.modal-highlight-box h5 {
+  font-size: 1.05rem;
+  margin-bottom: 0.85rem;
+  color: var(--color-text-primary);
+  border-left: 2px solid var(--color-active);
+  padding-left: 0.5rem;
+}
+
+.modal-highlight-box ul {
+  list-style-type: square;
+  padding-left: 1.25rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.modal-highlight-box li {
+  margin-bottom: 0.5rem;
+}
+
+/* 10. Reusable Footer Layout */
 .portfolio-footer {
   padding: 5rem 0 4rem;
   border-top: 1px solid var(--color-border);
@@ -422,7 +809,7 @@ body {
   color: var(--color-text-secondary);
 }
 
-/* Responsiveness Adaptability */
+/* Screen size adjustments */
 @media (max-width: 600px) {
   .portfolio-header {
     padding: 4rem 0 2.5rem;
