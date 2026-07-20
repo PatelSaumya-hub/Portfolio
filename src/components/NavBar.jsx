@@ -18,14 +18,14 @@ function NavBar({ activePath, navItems, theme, toggleTheme }) {
           ))}
         </ul>
         
-        {/* Grayscale Theme Toggle matching clean white style constraints */}
+        {/* Sleek Theme Switcher matching high-end styling */}
         <button 
           onClick={toggleTheme} 
           className="btn-theme-toggle"
           type="button"
-          aria-label="Toggle Grayscale Theme"
+          aria-label="Toggle Theme Mode"
         >
-          Theme: {theme === 'light-white' ? 'White' : 'Slate'}
+          Theme: {theme === 'dark' ? 'Dark' : 'Light'}
         </button>
       </div>
     </nav>

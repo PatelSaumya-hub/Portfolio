@@ -58,7 +58,7 @@ const PROJECT_DETAILS = {
         <path className="connector-line" d="M 505 135 L 550 135" fill="none"/>
         <polygon className="connector-arrow" points="190,85 183,81 183,89" />
         <polygon className="connector-arrow" points="190,185 183,181 183,189" />
-        <polygon class="connector-arrow" points="375,135 368,131 368,139" />
+        <polygon className="connector-arrow" points="375,135 368,131 368,139" />
         <polygon className="connector-arrow" points="550,135 543,131 543,139" />
       </svg>
     )
@@ -280,13 +280,15 @@ const PROJECT_DETAILS = {
 function App() {
   const location = useLocation();
   
-  // States
-  const [theme, setTheme] = useState('light-white');
+  // 1. useState for Theme (dark by default, toggles to light)
+  const [theme, setTheme] = useState('dark');
+  
+  // 2. useState for details modal overlay
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   
-  // Props data
+  // Dynamic Props data
   const name = "Saumya Patel";
-  const themeColor = "#ffffff"; 
+  const themeColor = "transparent"; // Styled dynamic gradient background
   const skillList = [
     "Python", "JavaScript", "TypeScript", "Solidity", "SQL", "C++",
     "FastAPI", "Express.js", "Node.js", "RESTful APIs",
@@ -302,7 +304,7 @@ function App() {
     { path: '/contact', label: 'Contact' }
   ];
 
-  // Apply theme class globally
+  // Apply theme class globally to document body
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
@@ -319,7 +321,7 @@ function App() {
   }, []);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light-white' ? 'light-gray' : 'light-white');
+    setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
   };
 
   const handleOpenModal = (projectId) => {
@@ -337,6 +339,13 @@ function App() {
 
   return (
     <div className="portfolio-app">
+      {/* Background Neon Glowing Accents */}
+      <div className="glow-wrapper">
+        <div className="radial-glow glow-1"></div>
+        <div className="radial-glow glow-2"></div>
+        <div className="radial-glow glow-3"></div>
+      </div>
+
       <NavBar 
         activePath={location.pathname} 
         navItems={navItems} 
