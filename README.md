@@ -103,5 +103,5 @@ Systems, Backend, and Web3 Software Engineer specializing in scalable API design
 ## Contact and Professional Links
 
 * **Email**: [sp.1709.dev@gmail.com](mailto:sp.1709.dev@gmail.com)
-* **GitHub**: [github.com](https://github.com)
+* **GitHub**: [github.com/PatelSaumya-hub](https://github.com/PatelSaumya-hub)
 * **LinkedIn**: [linkedin.com](https://linkedin.com)
