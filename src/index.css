@@ -1,15 +1,28 @@
 /* ==========================================================================
-   PLAIN WHITE & CLEAN MINIMALIST DESIGN SYSTEM
+   MINIMALIST DUAL LIGHT-THEME STYLING SYSTEM
    ========================================================================== */
 
-:root {
+/* 1. Theme Configuration Custom Properties */
+body.light-white {
   --color-bg: #ffffff;
+  --color-bg-card: #ffffff;
   --color-text-primary: #111111;
-  --color-text-secondary: #555555;
+  --color-text-secondary: #4a5568;
   --color-border: #e2e8f0;
-  --color-border-dark: #718096;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
+  --color-border-hover: #cbd5e1;
+  --color-highlight-bg: #f8fafc;
+  --color-active: #000000;
+}
+
+body.light-gray {
+  --color-bg: #f1f5f9; /* Soft cool-grey background */
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #475569;
+  --color-border: #cbd5e1;
+  --color-border-hover: #94a3b8;
+  --color-highlight-bg: #f8fafc;
+  --color-active: #0f172a;
 }
 
 * {
@@ -21,13 +34,12 @@
 body {
   background-color: var(--color-bg);
   color: var(--color-text-primary);
-  font-family: var(--font-sans);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Header & Containment */
+/* Containment Layout */
 .header-container,
 .nav-container,
 .portfolio-main,
@@ -38,19 +50,26 @@ body {
   padding: 0 1.5rem;
 }
 
-/* Reusable NavBar Component */
+/* 2. Navigation Bar & Theme Selector */
 .portfolio-nav {
   position: sticky;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
   z-index: 100;
-  padding: 1rem 0;
+  padding: 1.25rem 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav-links {
   display: flex;
-  gap: 1.75rem;
+  gap: 2rem;
   list-style: none;
 }
 
@@ -67,39 +86,59 @@ body {
 }
 
 .nav-links a.active {
-  color: var(--color-text-primary);
-  font-weight: 600;
-  border-bottom: 1px solid var(--color-text-primary);
+  color: var(--color-active);
+  font-weight: 700;
+  border-bottom: 1.5px solid var(--color-active);
+  padding-bottom: 2px;
 }
 
-/* Reusable Header Component */
+.btn-theme-toggle {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  padding: 0.4rem 0.85rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-theme-toggle:hover {
+  background-color: var(--color-highlight-bg);
+  border-color: var(--color-border-hover);
+}
+
+/* 3. Header View */
 .portfolio-header {
-  padding: 5rem 0 3rem;
+  padding: 6rem 0 3.5rem;
   border-bottom: 1px solid var(--color-border);
+  transition: border-color 0.3s ease;
 }
 
 .header-name {
-  font-size: 2.5rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  font-size: 2.75rem;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   margin-bottom: 0.5rem;
 }
 
 .header-title {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   color: var(--color-text-secondary);
   font-weight: 400;
 }
 
-/* Main Layout Structure */
+/* 4. Portfolio Sections */
 .portfolio-main {
-  padding: 3rem 0;
+  padding: 2rem 0;
 }
 
 .portfolio-section {
-  padding: 3.5rem 0;
+  padding: 4rem 0;
   border-bottom: 1px solid var(--color-border);
+  transition: border-color 0.3s ease;
 }
 
 .portfolio-section:last-of-type {
@@ -107,31 +146,32 @@ body {
 }
 
 .portfolio-section h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-bottom: 1.75rem;
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
 }
 
 .portfolio-section h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-top: 2rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
   margin-bottom: 1.25rem;
 }
 
 .about-text {
   font-size: 1.05rem;
   color: var(--color-text-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
-/* Experience & Projects Highlight lists */
+/* Project Cards & Details */
 .highlight-item,
 .project-node {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
   border-bottom: 1px dashed var(--color-border);
+  transition: border-color 0.3s ease;
 }
 
 .highlight-item:last-child,
@@ -143,17 +183,16 @@ body {
 
 .highlight-item h4,
 .project-node h3 {
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin-bottom: 0.35rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
 }
 
 .highlight-meta,
 .project-type {
   font-size: 0.85rem;
   color: var(--color-text-secondary);
-  margin-bottom: 0.75rem;
-  font-family: var(--font-sans);
+  margin-bottom: 0.85rem;
 }
 
 .highlight-item p,
@@ -162,22 +201,139 @@ body {
   color: var(--color-text-secondary);
 }
 
-/* Monospace text diagrams */
 .project-flow {
   display: block;
-  background-color: #fafafa;
+  background-color: var(--color-highlight-bg);
   border: 1px solid var(--color-border);
   padding: 1.25rem;
   margin: 1.25rem 0;
   border-radius: 4px;
   overflow-x: auto;
-  font-family: var(--font-mono);
+  font-family: monospace;
   font-size: 0.8rem;
   line-height: 1.4;
-  color: #333;
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Skills list components dynamic props */
+/* 5. Contact Form with Controlled Inputs (Lab 2 specifications) */
+.contact-intro {
+  margin-bottom: 2.5rem;
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+}
+
+.contact-form-container {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  padding: 2.5rem;
+  border-radius: 6px;
+  margin-bottom: 3rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.help-toggle-wrapper {
+  margin-bottom: 2rem;
+}
+
+.btn-help-toggle {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-help-toggle:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+}
+
+.help-box {
+  background-color: var(--color-highlight-bg);
+  border: 1px dashed var(--color-border-hover);
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+  margin-top: 0.85rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.controlled-textarea {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.controlled-textarea:focus {
+  border-color: var(--color-border-hover);
+}
+
+.character-count {
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.35rem;
+}
+
+/* Controlled Real-time Input Review Board */
+.input-preview-box {
+  border-top: 1px solid var(--color-border);
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.input-preview-box h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.85rem;
+  color: var(--color-text-primary);
+}
+
+.preview-content {
+  background-color: var(--color-highlight-bg);
+  border: 1px solid var(--color-border);
+  padding: 1.25rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  min-height: 80px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.placeholder-text {
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* 6. Skills Render Layout */
 .skills-list {
   display: flex;
   flex-wrap: wrap;
@@ -186,35 +342,70 @@ body {
 }
 
 .skills-item {
-  background-color: #ffffff;
-  border: 1px solid var(--color-border-dark);
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   color: var(--color-text-primary);
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.9rem;
   border-radius: 4px;
   font-size: 0.85rem;
   font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-/* Reusable Footer Component */
+.skills-item:hover {
+  border-color: var(--color-border-hover);
+}
+
+/* 7. Not Found Error Route Layout */
+.not-found-view {
+  text-align: center;
+  padding: 6rem 0;
+}
+
+.error-text {
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+.btn-back-home {
+  display: inline-block;
+  background-color: var(--color-text-primary);
+  color: var(--color-bg);
+  padding: 0.65rem 1.25rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 650;
+  transition: background-color 0.2s ease;
+}
+
+.btn-back-home:hover {
+  background-color: var(--color-text-secondary);
+}
+
+/* 8. Reusable Footer Layout */
 .portfolio-footer {
-  padding: 4rem 0;
+  padding: 5rem 0 4rem;
   border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .portfolio-footer h3 {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+  font-size: 1.15rem;
+  margin-bottom: 1.25rem;
 }
 
 .contact-list {
   list-style: none;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .contact-list li {
   font-size: 0.95rem;
   color: var(--color-text-secondary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.65rem;
 }
 
 .contact-list a {
@@ -231,15 +422,18 @@ body {
   color: var(--color-text-secondary);
 }
 
-/* Responsiveness adjustments */
+/* Responsiveness Adaptability */
 @media (max-width: 600px) {
   .portfolio-header {
-    padding: 3rem 0 2rem;
+    padding: 4rem 0 2.5rem;
   }
   .header-name {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
   .nav-links {
-    gap: 1rem;
+    gap: 1.25rem;
+  }
+  .contact-form-container {
+    padding: 1.5rem;
   }
 }

@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import About from './components/About';
-import Skills from './components/Skills';
-import Footer from './components/Footer';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import Home from './components/Home';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import NotFound from './components/NotFound';
+import Footer from './components/Footer';
+import Skills from './components/Skills';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('about');
+  const location = useLocation();
   
-  // Data passed as props per lab specs
+  // 1. useState for theme toggle
+  const [theme, setTheme] = useState('light-white');
+  
+  // Props data per lab requirements
   const name = "Saumya Patel";
-  const themeColor = "#ffffff"; // Plain white inline style theme
+  const themeColor = "#ffffff"; // Plain white header background
   const skillList = [
     "Python", "JavaScript", "TypeScript", "Solidity", "SQL", "C++",
     "FastAPI", "Express.js", "Node.js", "RESTful APIs",
@@ -21,98 +27,50 @@ function App() {
   ];
 
   const navItems = [
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'contact', label: 'Contact' }
+    { path: '/', label: 'Home' },
+    { path: '/projects', label: 'Projects' },
+    { path: '/contact', label: 'Contact' }
   ];
 
-  // Active section scrollspy observer
+  // Apply theme class to document body whenever theme toggles
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
-      
-      for (const item of navItems) {
-        const el = document.getElementById(item.id);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(item.id);
-            break;
-          }
-        }
-      }
-    };
+    document.body.className = theme;
+  }, [theme]);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'light-white' ? 'light-gray' : 'light-white');
+  };
 
   return (
     <div className="portfolio-app">
-      {/* 4 Reusable components + NavBar composed into single page layout */}
-      <NavBar activeSection={activeSection} navItems={navItems} />
+      {/* Navigation bar with React Router links and theme toggle state */}
+      <NavBar 
+        activePath={location.pathname} 
+        navItems={navItems} 
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
       
-      <Header name={name} themeColor={themeColor} />
-      
+      {/* Primary Routing paths */}
       <main className="portfolio-main">
-        
-        <About />
-
-        {/* Projects Section */}
-        <section id="projects" className="portfolio-section">
-          <h2>Featured Projects</h2>
-          
-          <div className="projects-list">
-            
-            <div className="project-node">
-              <h3>Paper Trail</h3>
-              <p className="project-type">NLP Similarity Engine &amp; Academic Assistant</p>
-              <p className="project-desc">
-                A locally-hosted academic research assistant processing PDF files, building keyword dictionary frequency hashes, and calculating Dice similarity coefficients to recommend papers from database caches or ArXiv search interfaces.
-              </p>
-              <pre className="project-flow">
-{`[ PDF File Input ] ---> [ pdfminer Parser ] ---> [ Stopword filter ]
-                                                          |
-                                                          v
-[ Output Rank Map ] <--- [ Similarity Engine ] <--- [ Word Frequency Hash ]`}
-              </pre>
-            </div>
-
-            <div className="project-node">
-              <h3>ChainBeasts &amp; PowerToken</h3>
-              <p className="project-type">GameFi NFT Evolution Protocol</p>
-              <p className="project-desc">
-                EVM smart contracts designed in Solidity using Foundry. Establishes ERC721 token evolution milestones linked with transactional ERC20 token burn processes. Custom error designs limit overall gas consumption.
-              </p>
-              <pre className="project-flow">
-{`[ User Wallet ] --------> [ PowerToken Contract ] ----> [ Evolution Burn ]
-       |                                                      |
-       v                                                      v
-[ Approve Power Spend ] -> [ ChainBeasts Contract ] --> [ Evolution Event ]`}
-              </pre>
-            </div>
-
-            <div className="project-node">
-              <h3>Walmart Sales Analytics</h3>
-              <p className="project-type">Jupyter Data Science EDA</p>
-              <p className="project-desc">
-                Exploratory data analysis modeling store efficiency levels, charting seasonality performance spikes around major holidays, and visualizing economic correlation coefficients (CPI, fuel, unemployment) using Pandas and Seaborn.
-              </p>
-            </div>
-
-          </div>
-        </section>
-
-        <Skills skillList={skillList} />
-        
-        {/* Contact wrapper for NavBar anchoring */}
-        <div id="contact">
-          <Footer />
-        </div>
-
+        <Routes>
+          <Route 
+            path="/" 
+            element={
+              <div className="home-route-wrapper">
+                <Home name={name} themeColor={themeColor} />
+                <Skills skillList={skillList} />
+              </div>
+            } 
+          />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* 404 Route for any undefined paths */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
+
+      <Footer />
     </div>
   );
 }
