@@ -1,0 +1,245 @@
+/* ==========================================================================
+   PLAIN WHITE & CLEAN MINIMALIST DESIGN SYSTEM
+   ========================================================================== */
+
+:root {
+  --color-bg: #ffffff;
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-border: #e2e8f0;
+  --color-border-dark: #718096;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header & Containment */
+.header-container,
+.nav-container,
+.portfolio-main,
+.footer-container {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Reusable NavBar Component */
+.portfolio-nav {
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 100;
+  padding: 1rem 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--color-text-primary);
+}
+
+.nav-links a.active {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-text-primary);
+}
+
+/* Reusable Header Component */
+.portfolio-header {
+  padding: 5rem 0 3rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-name {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+
+.header-title {
+  font-size: 1.15rem;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+/* Main Layout Structure */
+.portfolio-main {
+  padding: 3rem 0;
+}
+
+.portfolio-section {
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.portfolio-section:last-of-type {
+  border-bottom: none;
+}
+
+.portfolio-section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.75rem;
+}
+
+.portfolio-section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.about-text {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* Experience & Projects Highlight lists */
+.highlight-item,
+.project-node {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.highlight-item:last-child,
+.project-node:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.highlight-item h4,
+.project-node h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.highlight-meta,
+.project-type {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.75rem;
+  font-family: var(--font-sans);
+}
+
+.highlight-item p,
+.project-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+/* Monospace text diagrams */
+.project-flow {
+  display: block;
+  background-color: #fafafa;
+  border: 1px solid var(--color-border);
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* Skills list components dynamic props */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.skills-item {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border-dark);
+  color: var(--color-text-primary);
+  padding: 0.4rem 0.85rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Reusable Footer Component */
+.portfolio-footer {
+  padding: 4rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.portfolio-footer h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.contact-list {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.contact-list li {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.contact-list a {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+}
+
+.contact-list a:hover {
+  text-decoration: none;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+/* Responsiveness adjustments */
+@media (max-width: 600px) {
+  .portfolio-header {
+    padding: 3rem 0 2rem;
+  }
+  .header-name {
+    font-size: 2rem;
+  }
+  .nav-links {
+    gap: 1rem;
+  }
+}
