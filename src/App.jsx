@@ -7,6 +7,10 @@ import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 import Footer from './components/Footer';
 import Skills from './components/Skills';
+import TaskManager from './components/TaskManager';
+import TaskDetailPage from './components/TaskDetailPage';
+import ActivityLogsPage from './components/ActivityLogsPage';
+import AuthModal from './components/AuthModal';
 
 // Detailed specifications for interactive system flow modals
 const PROJECT_DETAILS = {
@@ -298,8 +302,20 @@ function App() {
     "Git", "GitHub Actions", "Docker"
   ];
 
+  // User State & Auth Modal State
+  const [currentUser, setCurrentUser] = useState({
+    _id: 'usr_demo',
+    username: 'Saumya Patel',
+    email: 'saumya@example.com',
+    profilePic: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    is2FAEnabled: true
+  });
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   const navItems = [
     { path: '/', label: 'Home' },
+    { path: '/tasks', label: 'Task Manager' },
+    { path: '/logs', label: 'Activity Logs' },
     { path: '/projects', label: 'Projects' },
     { path: '/contact', label: 'Contact' }
   ];
@@ -351,6 +367,8 @@ function App() {
         navItems={navItems} 
         theme={theme}
         toggleTheme={toggleTheme}
+        user={currentUser}
+        onOpenAuthModal={() => setIsAuthModalOpen(true)}
       />
       
       <main className="portfolio-main">
@@ -368,12 +386,25 @@ function App() {
             path="/projects" 
             element={<Projects onViewDetails={handleOpenModal} />} 
           />
+          <Route path="/tasks" element={<TaskManager user={currentUser} />} />
+          <Route path="/tasks/:id" element={<TaskDetailPage user={currentUser} />} />
+          <Route path="/logs" element={<ActivityLogsPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
 
       <Footer />
+
+      {/* Auth & 2FA Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        user={currentUser}
+        onLoginSuccess={(userData) => setCurrentUser(userData)}
+        onLogout={() => setCurrentUser(null)}
+        addToast={() => {}}
+      />
 
       {/* Interactive System Flow Modal Overlay */}
       {activeProject && (
